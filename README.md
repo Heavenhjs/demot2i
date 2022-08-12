@@ -7,13 +7,14 @@ The downloaded code structure is as follows:
 The code folder places the main code of the model, the data folder places the data set (such as bird and coco), and the damcoders place the trained text encoder and image encoder.
 
 # 二、Configure Virtual Environment
-Download the packaged virtual environment：[demoEnv](%28https://1drv.ms/u/s!AlLisU6CMruCkFMZhgtuEb4iDvOy?e=2nFYdW%29)，Put it into envs under the anaconda installation directory, and there is no need to extract it,such as D:\Anaconda3\envs：
+Download the packaged virtual environment：[demoEnv](%28https://1drv.ms/u/s!AlLisU6CMruCkFMZhgtuEb4iDvOy?e=2nFYdW%29).Put package(there is no need to extract it) into envs under the anaconda installation directory,such as D:\Anaconda3\envs：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/68b3ae9d2d7f443c91b444eddfc15e9e.png)
-After putting it in, you can enter it in the anaconda prompt or pycharm terminal:`conda info --envs`，If demoEnv is displayed, the virtual environment is successfully imported:
+After putting it in, you can enter it in the anaconda prompt or pycharm terminal:`conda info --envs`.If demoEnv is displayed, the virtual environment is successfully imported:
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/823853c2ac2c48d1b617a4a9ae25e58c.png)
 
 # 三、Configure Dataset
-The dataset has been packaged and uploaded to OneDrive. Download the dataset:[CUB-Bird](https://1drv.ms/u/s!AlLisU6CMruC0QKvjjmNjXzC9wRj?e=h0PC6y)，replace the data folder of the code project:
+The dataset has been packaged and uploaded to OneDrive. 
+Download the dataset:[CUB-Bird](https://1drv.ms/u/s!AlLisU6CMruC0QKvjjmNjXzC9wRj?e=h0PC6y)，replace the data folder of the code project:
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/8d160ba7c9db4d4da011fd76d0513e85.png)
 # 四、Start Training
 The final configured project structure is as follows:
