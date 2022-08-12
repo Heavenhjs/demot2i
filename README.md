@@ -1,76 +1,27 @@
-# DF-GAN: A Simple and Effective Baseline for Text-to-Image Synthesis (CVPR 2022 Oral)
 
-(A novel and effective one-stage Text-to-Image Backbone)
+# 一、配置项目代码
+`git clone https://github.com/Heavenhjs/demot2i.git`或者[下载压缩包](https://github.com/Heavenhjs/demot2i.git)
+下载后的代码结构如下：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/366f31b2de6644bb81f74e6d124a7157.png)
+其中：code文件夹放置模型主要代码，data放置数据集（如bird、coco），DAMSMencoders放置已经训练好的文本编码器和图像编码器。
 
-Official Pytorch implementation for our paper [DF-GAN: A Simple and Effective Baseline for Text-to-Image Synthesis](https://arxiv.org/abs/2008.05865) by [Ming Tao](https://scholar.google.com/citations?user=5GlOlNUAAAAJ=en), [Hao Tang](https://scholar.google.com/citations?user=9zJkeEMAAAAJ&hl=en), [Fei Wu](https://scholar.google.com/citations?user=tgeCjhEAAAAJ&hl=en), [Xiao-Yuan Jing](https://scholar.google.com/citations?hl=en&user=2IInQAgAAAAJ), [Bing-Kun Bao](https://scholar.google.com/citations?user=lDppvmoAAAAJ&hl=en), [Changsheng Xu](https://scholar.google.com/citations?user=hI9NRDkAAAAJ). 
+# 二、配置虚拟环境
+点击下载已经打包好的虚拟环境[demoEnv](%28https://1drv.ms/u/s!AlLisU6CMruCkFMZhgtuEb4iDvOy?e=2nFYdW%29)，将其放到Anaconda安装目录下的envs中，无需解压。比如D:\Anaconda3\envs：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/68b3ae9d2d7f443c91b444eddfc15e9e.png)
+放入之后可以在anaconda prompt或者pycharm终端中输入：`conda info --envs`，如果显示有demoEnv则成功导入虚拟环境：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/823853c2ac2c48d1b617a4a9ae25e58c.png)
 
-<img src="framework.png" width="900px" height="448px"/>
+# 三、配置数据集
+数据集已经打包上传至OneDrive，下载数据集[CUB-Bird](https://1drv.ms/u/s!AlLisU6CMruC0QKvjjmNjXzC9wRj?e=h0PC6y)，替换代码项目的data文件夹：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8d160ba7c9db4d4da011fd76d0513e85.png)
+# 四、开始运行
+最终配置好的项目结构如下：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/5008aced3da4433188e51b86e325db17.png)
+其中code/cfg里的yml文件存放模型的一些参数，code/miscc文件夹存放模型的选项和工具函数，DAMSM是深度注意多模态相似模块，dataset用于处理数据和加载dataloader，main是项目的入口文件，model是模型文件。
 
----
-### Requirements
-- python 3.6+
-- Pytorch 1.0+
-- easydict
-- nltk
-- scikit-image
-- A titan xp (set nf=32 in *.yaml) or a V100 32GB (set nf=64 in *.yaml)
-### Installation
-
-Clone this repo.
-```
-git clone https://github.com/tobran/DF-GAN
-cd DF-GAN/code/
-```
-
-### Datasets Preparation
-1. Download the preprocessed metadata for [birds](https://drive.google.com/open?id=1O_LtUP9sch09QH3s_EBAgLEctBQ5JBSJ) [coco](https://drive.google.com/open?id=1rSnbIGNDGZeHlsUlLdahj0RJ9oo6lgH9) and save them to `data/`
-2. Download the [birds](http://www.vision.caltech.edu/visipedia/CUB-200-2011.html) image data. Extract them to `data/birds/`
-3. Download [coco](http://cocodataset.org/#download) dataset and extract the images to `data/coco/`
+运行：
+1、激活demoEnv环境:`conda activate demoEnv`
+2、进入code目录，开始运行，模型进入训练：`python main.py --cfg cfg/bird.yml`
+3、训练好了之后，将code/cfg/bird.yml中的B_VALIDATION 改为True，然后进入采样：`python main.py --cfg cfg/bird.yml`
 
 
-### Pre-trained text encoder
-1. Download the [pre-trained text encoder](https://drive.google.com/open?id=1GNUKjVeyWYBJ8hEU-yrfYQpDOkxEyP3V) for CUB and save it to `DAMSMencoders/bird/inception/`
-2. Download the [pre-trained text encoder](https://drive.google.com/open?id=1zIrXCE9F6yfbEJIbNP5-YrEe2pZcPSGJ) for coco and save it to `DAMSMencoders/coco/inception/`
-
----
-### Training
-
-**Train DF-GAN models:**
-  - For bird dataset: `python main.py --cfg cfg/bird.yml`
-  - For coco dataset: `python main.py --cfg cfg/coco.yml`
-
-- `*.yml` files are example configuration files for training/evaluation our models.
-
-### Evaluating
-
-**Dwonload Pretrained Model**
-- [DF-GAN for bird](https://drive.google.com/file/d/1svVTyKWj5B1J82rEiZILUS289DsmT6U7/view?usp=sharing). Download and save it to `models/bird/`
-- [DF-GAN for coco](https://drive.google.com/file/d/15llod5eTjjdzDTXQroJG_eh2c-GrW9H7/view?usp=sharing). Download and save it to `models/coco/`
-
-**Evaluate DF-GAN models:**
-
-- To evaluate our DF-GAN on CUB, change B_VALIDATION to True in the bird.yml. and then run `python main.py --cfg cfg/bird.yml`
-- To evaluate our DF-GAN on coco, change B_VALIDATION to True in the coco.yml. and then run `python main.py --cfg cfg/coco.yml`
-- We compute inception score for models trained on birds using [StackGAN-inception-model](https://github.com/hanzhanggit/StackGAN-inception-model).
-- We compute FID for CUB and coco using [DM-GAN/eval/FID](https://github.com/MinfengZhu/DM-GAN/tree/master/eval/FID). 
-
----
-### Citing DF-GAN
-
-If you find DF-GAN useful in your research, please consider citing our paper:
-
-```
-@article{ming2020DFGAN,
-  title={DF-GAN: A Simple and Effective Baseline for Text-to-Image Synthesis},
-  author={Ming Tao, Hao Tang, Fei Wu, Xiao-Yuan Jing, Bing-Kun Bao, Changsheng Xu},
-  journal={arXiv preprint arXiv:2008.05865},
-  year={2020}
-}
-```
-The code is released for academic research use only. For commercial use, please contact [Ming Tao](mingtao2000@126.com).
-
-**Reference**
-
-- [StackGAN++: Realistic Image Synthesis with Stacked Generative Adversarial Networks](https://arxiv.org/abs/1710.10916) [[code]](https://github.com/hanzhanggit/StackGAN-v2)
-- [AttnGAN: Fine-Grained Text to Image Generation with Attentional Generative Adversarial Networks](https://openaccess.thecvf.com/content_cvpr_2018/papers/Xu_AttnGAN_Fine-Grained_Text_CVPR_2018_paper.pdf) [[code]](https://github.com/taoxugit/AttnGAN)
-- [DM-GAN: Realistic Image Synthesis with Stacked Generative Adversarial Networks](https://arxiv.org/abs/1904.01310) [[code]](https://github.com/MinfengZhu/DM-GAN)
